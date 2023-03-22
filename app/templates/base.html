@@ -10,8 +10,12 @@
 <body>
 
     {% include 'nav.html' %}
+   
+    <div class="row bg-tertiary">
+        {% include 'alerts.html' %}
+    </div>
 
-    <div class="row bg-warning-subtle py-5">
+    <div class="row bg-warning-subtle border border-success-subtle py-5">
         <div class="col text-center">
             {% block header %}
                 <h1>Blarg</h1>

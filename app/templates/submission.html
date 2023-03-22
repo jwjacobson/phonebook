@@ -3,15 +3,16 @@
 {% block title %} Submission {% endblock %}
 
 {% block header %}
-<h1>Submit your data here</h1>
+<h1>Data Submission Form</h1>
 {% endblock %}
 
 {% block content %}
-    <div class="row bg-warning">
-        <div class="col">
-            <div class="card mt-3">
+    <div class="row">
+        <div class="col bg-success-subtle border border-danger-subtle pb-3">
+            <div class="card mt-3 bg-warning-subtle">
                 <div class="card-body">
                     <form action="" method="post">
+                        {{ form.csrf_token }}
 
                         {{ form.first_name.label }}
                         {{ form.first_name(class="form-control", placeholder="Enter First Name") }}
@@ -25,7 +26,7 @@
                         {{ form.address.label }}
                         {{ form.address(class="form-control", placeholder="Enter Address") }}
 
-                        {{ form.submit(class="btn btn-primary w-100 mt-3") }}
+                        {{ form.submit(class="btn btn-success text-warning border border-danger-subtle w-100 mt-3") }}
 
                     </form>
                 </div>

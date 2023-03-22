@@ -17,5 +17,6 @@ def submission():
         phone_number = form.phone_number.data
         address = form.address.data
         print(first_name, last_name, phone_number, address)
+        flash(f"{first_name}'s data successfully registered!", "primary")
         return redirect(url_for('index'))
     return render_template('submission.html', form=form)
