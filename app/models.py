@@ -2,7 +2,7 @@ from app import db
 from datetime import datetime
 
 
-class User(db.Model):
+class Entry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
@@ -17,4 +17,4 @@ class User(db.Model):
         db.session.commit()
 
     def __repr(self):
-        return f"<User {self.id}|{self.username}>"
+        return f"<Entry {self.id}|{self.first_name} {self.last_name}>"
