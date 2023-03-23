@@ -19,6 +19,6 @@ def submission():
         address = form.address.data
         print(first_name, last_name, phone_number, address)
         new_entry = Entry(first_name=first_name, last_name=last_name, phone_number=phone_number, address=address)
-        flash(f"{first_name} {last_name}'s data successfully registered.", "primary")
+        flash(f"{first_name} {last_name}'s data successfully registered.", "info")
         return redirect(url_for('index'))
     return render_template('submission.html', form=form)
