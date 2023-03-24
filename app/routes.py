@@ -44,3 +44,27 @@ def signup():
         flash(f"User {new_user.username} created.", "info")
         return redirect(url_for('index'))
     return render_template('signup.html', form=form)
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        print('Validated.')
+        username = form.username.data
+        password = form.password.data
+        print(username, password)
+        user = User.query.filter_by(username=username).first()
+        if user is not None and user.check_password(password):
+            login_user(user)
+            flash(f'Logged in as {username}', 'info')
+            return redirect(url_for('index'))
+        else:
+            flash('Invalid credentials.', 'danger')
+            return redirect(url_for('login'))
+    return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash(f"Logged out", "info")
+    return redirect(url_for('index'))
