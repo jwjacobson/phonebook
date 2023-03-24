@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import InputRequired
+from wtforms import StringField, SubmitField, PasswordField, EmailField
+from wtforms.validators import InputRequired, EqualTo
 
 class SubmissionForm(FlaskForm):
     first_name = StringField('First Name', validators=[InputRequired()])
