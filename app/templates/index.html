@@ -3,5 +3,10 @@
 {% block title %} Home {% endblock %}
 
 {% block header %}
-<h1>Welcome to the Phonebook</h1>
+<h1>P H O N E B O O K</h1>
+{% if current_user.is_authenticated %}
+        <h5>Welcome back, {{ current_user.username }}.</h5>
+    {% else %}
+        <h5>Log in or create an account to make entries.</h5>
+    {% endif %}
 {% endblock %}
