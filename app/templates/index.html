@@ -3,7 +3,7 @@
 {% block title %} Home {% endblock %}
 
 {% block header %}
-<h1>P H O N E B O O K</h1>
+<h1 class="text-primary">P H O N E B O O K</h1>
 {% if current_user.is_authenticated %}
         <h5>Welcome back, {{ current_user.username }}.</h5>
     {% else %}
@@ -15,23 +15,23 @@
         <div>
 {% for entry in entries %}
 {% if entry.submitter == current_user %}
-
-                <div class="card mt-3">
-                    <div class="row g-0">
-                        <div class="card-body">
-                            <h1>{{ entry.first_name }}</h1>
-                            <h1>{{ entry.last_name }}</h1>
-                            <h1>{{ entry.phone_number }}</h1>
-                            <h1>{{ entry.address }}</h1>
-                        </div>    
-
-                             
-                    </div>
-                </div>
-                
-                {% endif %}
-            {% endfor %}
-
-
+<div class="card my-3 bg-warning text-primary border-danger-subtle" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="https://i.pravatar.cc/300" class="img-fluid rounded-start" alt="a kitten">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ entry.first_name }} {{ entry.last_name }}</h5>
+          <p class="card-text">{{ entry.phone_number }}</p>
+          <p class="card-text">{{ entry.address }}</p>
         </div>
-    {% endblock %}
+      </div>
+    </div>
+</div>
+                
+{% endif %}
+{% endfor %}
+
+
+{% endblock %}
