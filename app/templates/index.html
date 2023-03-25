@@ -10,3 +10,26 @@
         <h5>Log in or create an account to make entries.</h5>
     {% endif %}
 {% endblock %}
+
+{% block content %}
+        <div>
+{% for entry in entries %}
+                <div class="card mt-3">
+                    <div class="row g-0">
+                        <div class="card-body">
+                            <h1>{{ entry.first_name }}</h1>
+                            <h1>{{ entry.last_name }}</h1>
+                            <h1>{{ entry.phone_number }}</h1>
+                            <h1>{{ entry.address }}</h1>
+                        </div>    
+
+                             
+                    </div>
+                </div>
+                
+            
+            {% endfor %}
+
+
+        </div>
+    {% endblock %}

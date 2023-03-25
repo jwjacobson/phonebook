@@ -6,10 +6,12 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    entries = Entry.query.all()
+    return render_template('index.html', entries=entries)
 
 
 @app.route('/submission', methods = ['GET', 'POST'])
+@login_required
 def submission():
     form = SubmissionForm()
     if form.validate_on_submit():
@@ -19,7 +21,7 @@ def submission():
         phone_number = form.phone_number.data
         address = form.address.data
         print(first_name, last_name, phone_number, address)
-        new_entry = Entry(first_name=first_name, last_name=last_name, phone_number=phone_number, address=address)
+        new_entry = Entry(first_name=first_name, last_name=last_name, phone_number=phone_number, address=address, user_id=current_user.id)
         flash(f"{first_name} {last_name}'s data successfully registered.", "info")
         return redirect(url_for('index'))
     return render_template('submission.html', form=form)
