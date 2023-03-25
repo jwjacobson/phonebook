@@ -38,7 +38,7 @@ def signup():
         print(first_name, last_name, email, username, password)
         check_user = db.session.execute(db.select(User).filter((User.username == username) | (User.email == email))).scalars().all()
         if check_user:
-            flash("A user with that username and/or email already exists", "warning")
+            flash("User already exists", "dark")
             return redirect(url_for('signup'))
         new_user = User(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
         flash(f"User {new_user.username} created.", "info")
@@ -59,7 +59,7 @@ def login():
             flash(f'Logged in as {username}', 'info')
             return redirect(url_for('index'))
         else:
-            flash('Invalid credentials.', 'danger')
+            flash('Invalid credentials.', 'dark')
             return redirect(url_for('login'))
     return render_template('login.html', form=form)
 
