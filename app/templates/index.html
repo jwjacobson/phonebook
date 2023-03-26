@@ -3,7 +3,7 @@
 {% block title %} Home {% endblock %}
 
 {% block header %}
-<h1 class="text-primary">P H O N E B O O K</h1>
+<h1>P H O N E B O O K</h1>
 {% if current_user.is_authenticated %}
         <h5>Welcome back, {{ current_user.username }}.</h5>
     {% else %}
@@ -25,6 +25,7 @@
           <h5 class="card-title">{{ entry.first_name }} {{ entry.last_name }}</h5>
           <p class="card-text">{{ entry.phone_number }}</p>
           <p class="card-text">{{ entry.address }}</p>
+          <a href="{{ url_for('edit_entry', entry_id=entry.id) }}" class="btn btn-success">Edit</a>
         </div>
       </div>
     </div>

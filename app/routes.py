@@ -70,3 +70,32 @@ def logout():
     logout_user()
     flash(f"Logged out", "info")
     return redirect(url_for('index'))
+
+@app.route('/edit/<entry_id>', methods=["GET", "POST"])
+@login_required
+def edit_entry(entry_id):
+    form = SubmissionForm()
+    entry_to_edit = Entry.query.get_or_404(entry_id)
+    # Make sure that the post author is the current user
+    if entry_to_edit.submitter != current_user:
+        flash("You are not authorized to edit this entry", "dark")
+        return redirect(url_for('index'))
+
+    # If form submitted, update Post
+    if form.validate_on_submit():
+        # update the post with the form data
+        entry_to_edit.first_name = form.first_name.data
+        entry_to_edit.last_name = form.last_name.data
+        entry_to_edit.phone_number = form.phone_number.data
+        entry_to_edit.address = form.address.data
+        # Commit that to the database
+        db.session.commit()
+        flash(f"{entry_to_edit.first_name} {entry_to_edit.last_name}'s entry has been edited.", "info")
+        return redirect(url_for('index'))
+
+    # Pre-populate the form with Post To Edit's values
+    form.first_name.data = entry_to_edit.first_name
+    form.last_name.data = entry_to_edit.last_name
+    form.phone_number.data = entry_to_edit.phone_number
+    form.address.data = entry_to_edit.address
+    return render_template('edit.html', form=form, entry=entry_to_edit)
