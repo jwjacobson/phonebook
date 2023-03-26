@@ -10,7 +10,7 @@ def index():
     return render_template('index.html', entries=entries)
 
 
-@app.route('/submission', methods = ['GET', 'POST'])
+@app.route('/submission', methods = ['GET', 'entry'])
 @login_required
 def submission():
     form = SubmissionForm()
@@ -27,7 +27,7 @@ def submission():
     return render_template('submission.html', form=form)
 
 
-@app.route('/signup', methods=["GET", "POST"])
+@app.route('/signup', methods=["GET", "entry"])
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
@@ -47,7 +47,7 @@ def signup():
         return redirect(url_for('index'))
     return render_template('signup.html', form=form)
 
-@app.route('/login', methods=["GET", "POST"])
+@app.route('/login', methods=["GET", "entry"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -71,31 +71,39 @@ def logout():
     flash(f"Logged out", "info")
     return redirect(url_for('index'))
 
-@app.route('/edit/<entry_id>', methods=["GET", "POST"])
+@app.route('/edit/<entry_id>', methods=["GET", "entry"])
 @login_required
 def edit_entry(entry_id):
     form = SubmissionForm()
     entry_to_edit = Entry.query.get_or_404(entry_id)
-    # Make sure that the post author is the current user
     if entry_to_edit.submitter != current_user:
         flash("You are not authorized to edit this entry", "dark")
         return redirect(url_for('index'))
 
-    # If form submitted, update Post
     if form.validate_on_submit():
-        # update the post with the form data
         entry_to_edit.first_name = form.first_name.data
         entry_to_edit.last_name = form.last_name.data
         entry_to_edit.phone_number = form.phone_number.data
         entry_to_edit.address = form.address.data
-        # Commit that to the database
         db.session.commit()
-        flash(f"{entry_to_edit.first_name} {entry_to_edit.last_name}'s entry has been edited.", "info")
+        flash("Entry edited.", "info")
         return redirect(url_for('index'))
 
-    # Pre-populate the form with Post To Edit's values
     form.first_name.data = entry_to_edit.first_name
     form.last_name.data = entry_to_edit.last_name
     form.phone_number.data = entry_to_edit.phone_number
     form.address.data = entry_to_edit.address
     return render_template('edit.html', form=form, entry=entry_to_edit)
+
+@app.route('/delete/<entry_id>')
+@login_required
+def delete_entry(entry_id):
+    entry_to_delete = Entry.query.get_or_404(entry_id)
+    if entry_to_delete.submitter != current_user:
+        flash("You are not authorized to delete this entry", "dark")
+        return redirect(url_for('index'))
+
+    db.session.delete(entry_to_delete)
+    db.session.commit()
+    flash(f"Entry \"{entry_to_delete.first_name} {entry_to_delete.last_name}\" deleted.", "info")
+    return redirect(url_for('index'))
