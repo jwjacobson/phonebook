@@ -7,7 +7,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 @app.route('/')
 def index():
     entries = Entry.query.all()
-    nums = {x for x in range (1, 71)}
+    nums = {"img="+str(x) for x in range (1, 71)}
     return render_template('index.html', entries=entries, nums=nums)
 
 

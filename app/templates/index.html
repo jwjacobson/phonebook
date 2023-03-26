@@ -3,7 +3,7 @@
 {% block title %} Home {% endblock %}
 
 {% block header %}
-<h1>P H O N E B O O K</h1>
+<h1 class="text-info-emphasis">P H O N E B O O K</h1>
 {% if current_user.is_authenticated %}
         <h5>Welcome back, {{ current_user.username }}.</h5>
     {% else %}
@@ -15,14 +15,14 @@
         <div>
 {% for entry in entries %}
 {% if entry.submitter == current_user %}
-<div class="card my-3 bg-warning border-danger-subtle" style="max-width: 540px;">
+<div class="card my-3 bg-warning-subtle border-danger-subtle" style="max-width: 540px;">
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="https://i.pravatar.cc/300?img={{ nums.pop() }}" class="img-fluid rounded-start" alt="a person">
+        <img src="https://i.pravatar.cc/300?{{ nums.pop() }}" class="img-fluid rounded-start" alt="a person">
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">{{ entry.first_name }} {{ entry.last_name }}</h5>
+          <h5 class="card-title text-success-emphasis">{{ entry.first_name }} {{ entry.last_name }}</h5>
           <p class="card-text">{{ entry.phone_number }}</p>
           <p class="card-text">{{ entry.address }}</p>
           <a href="{{ url_for('edit_entry', entry_id=entry.id) }}" class="btn btn-outline-success">Edit</a>
@@ -34,19 +34,19 @@
     </div>
 </div>
 
-<div class="modal fade" id="deleteEntryModal-{{ entry.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteEntryModal-{{ entry.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-success-subtle">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete entry?</h1>
+                <h1 class="modal-title fs-5 text-danger-emphasis" id="exampleModalLabel">Entry will be permanently deleted.</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            Delete entry?
+            <h5 class="text-warning-emphasis">  Are you sure?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{{ url_for('delete_entry', entry_id=entry.id) }}" class="btn btn-danger">Delete Submission</a>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">I changed my mind</button>
+                <a href="{{ url_for('delete_entry', entry_id=entry.id) }}" class="btn btn-danger">Delete! </a>
             </div>
         </div>
     </div>
