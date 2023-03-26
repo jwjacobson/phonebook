@@ -111,7 +111,7 @@ def edit_entry(entry_id):
         entry_to_edit.phone_number = form.phone_number.data
         entry_to_edit.address = form.address.data
         db.session.commit()
-        flash("Entry edited.", "info")
+        flash("Changes saved.", "info")
         return redirect(url_for("index"))
 
     form.first_name.data = entry_to_edit.first_name
