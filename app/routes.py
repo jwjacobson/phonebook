@@ -8,7 +8,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 @app.route("/")
 def index():
     entries = Entry.query.all()
-    nums = {"img=" + str(x) for x in range(1, 71)}
+    nums = {"img=" + str(x) for x in range(1, 71)}  #placeholder service has 70 entries
     return render_template("index.html", entries=entries, nums=nums)
 
 
@@ -30,7 +30,7 @@ def submission():
             address=address,
             user_id=current_user.id,
         )
-        flash(f"{first_name} {last_name}'s data successfully registered.", "info")
+        flash(f"Entry created.", "info")
         return redirect(url_for("index"))
     return render_template("submission.html", form=form)
 
@@ -56,7 +56,7 @@ def signup():
             .all()
         )
         if check_user:
-            flash("User already exists", "dark")
+            flash("User already exists.", "dark")
             return redirect(url_for("signup"))
         new_user = User(
             first_name=first_name,
@@ -92,7 +92,7 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
-    flash(f"Logged out", "info")
+    flash(f"Logged out.", "info")
     return redirect(url_for("index"))
 
 
@@ -102,7 +102,7 @@ def edit_entry(entry_id):
     form = SubmissionForm()
     entry_to_edit = Entry.query.get_or_404(entry_id)
     if entry_to_edit.submitter != current_user:
-        flash("You are not authorized to edit this entry", "dark")
+        flash("You are not authorized to edit this entry.", "dark")
         return redirect(url_for("index"))
 
     if form.validate_on_submit():
@@ -126,13 +126,13 @@ def edit_entry(entry_id):
 def delete_entry(entry_id):
     entry_to_delete = Entry.query.get_or_404(entry_id)
     if entry_to_delete.submitter != current_user:
-        flash("You are not authorized to delete this entry", "dark")
+        flash("You are not authorized to delete this entry.", "dark")
         return redirect(url_for("index"))
 
     db.session.delete(entry_to_delete)
     db.session.commit()
     flash(
-        f'Entry "{entry_to_delete.first_name} {entry_to_delete.last_name}" deleted.',
+        'Entry deleted.',
         "info",
     )
     return redirect(url_for("index"))
