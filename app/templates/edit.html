@@ -3,7 +3,7 @@
 {% block title %} Edit {% endblock %}
 
 {% block header %}
-<h1>Edit Submission Form</h1>
+<h1>Edit Entry</h1>
 {% endblock %}
 
 {% block content %}
@@ -25,9 +25,10 @@
 
                         {{ form.address.label }}
                         {{ form.address(class="form-control") }}
-
-                        {{ form.submit(class="btn btn-warning text-dark-emphasis border border-info-subtle w-100 mt-3", value="Edit Submission") }}
-
+                        
+                        <div class="text-center">
+                        {{ form.submit(class="btn btn-warning text-dark-emphasis border border-info-subtle w-50 mt-3", value="Edit Entry") }}
+                        </div>
                     </form>
                 </div>
             </div>

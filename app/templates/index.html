@@ -15,18 +15,18 @@
         <div>
 {% for entry in entries %}
 {% if entry.submitter == current_user %}
-<div class="card my-3 bg-warning text-primary border-danger-subtle" style="max-width: 540px;">
+<div class="card my-3 bg-warning border-danger-subtle" style="max-width: 540px;">
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="https://i.pravatar.cc/300" class="img-fluid rounded-start" alt="a kitten">
+        <img src="https://i.pravatar.cc/300?img={{ nums.pop() }}" class="img-fluid rounded-start" alt="a person">
       </div>
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">{{ entry.first_name }} {{ entry.last_name }}</h5>
           <p class="card-text">{{ entry.phone_number }}</p>
           <p class="card-text">{{ entry.address }}</p>
-          <a href="{{ url_for('edit_entry', entry_id=entry.id) }}" class="btn btn-success">Edit</a>
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteEntryModal-{{ entry.id }}">
+          <a href="{{ url_for('edit_entry', entry_id=entry.id) }}" class="btn btn-outline-success">Edit</a>
+          <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#deleteEntryModal-{{ entry.id }}">
             Delete
         </button>
         </div>
@@ -51,9 +51,7 @@
         </div>
     </div>
 </div>
-                
+
 {% endif %}
 {% endfor %}
-
-
 {% endblock %}

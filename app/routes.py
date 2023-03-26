@@ -7,10 +7,11 @@ from flask_login import login_user, logout_user, login_required, current_user
 @app.route('/')
 def index():
     entries = Entry.query.all()
-    return render_template('index.html', entries=entries)
+    nums = {x for x in range (1, 71)}
+    return render_template('index.html', entries=entries, nums=nums)
 
 
-@app.route('/submission', methods = ['GET', 'entry'])
+@app.route('/submission', methods = ['GET', 'post'])
 @login_required
 def submission():
     form = SubmissionForm()
@@ -27,7 +28,7 @@ def submission():
     return render_template('submission.html', form=form)
 
 
-@app.route('/signup', methods=["GET", "entry"])
+@app.route('/signup', methods=["GET", "post"])
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
@@ -47,7 +48,7 @@ def signup():
         return redirect(url_for('index'))
     return render_template('signup.html', form=form)
 
-@app.route('/login', methods=["GET", "entry"])
+@app.route('/login', methods=["GET", "post"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -71,7 +72,7 @@ def logout():
     flash(f"Logged out", "info")
     return redirect(url_for('index'))
 
-@app.route('/edit/<entry_id>', methods=["GET", "entry"])
+@app.route('/edit/<entry_id>', methods=["GET", "post"])
 @login_required
 def edit_entry(entry_id):
     form = SubmissionForm()

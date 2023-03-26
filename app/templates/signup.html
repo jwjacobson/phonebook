@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col bg-success-subtle">
+    <div class="row justify-content-center">
+        <div class="col-8 bg-success-subtle">
             <div class="card mt-3 bg-warning-subtle">
                 <div class="card-body">
                     <form action="" method="post">
@@ -31,9 +31,10 @@
 
                         {{ form.confirm_pass.label }}
                         {{ form.confirm_pass(class="form-control", placeholder="Confirm Your Password") }}
-
-                        {{ form.submit(class="btn btn-warning text-dark-emphasis border border-info-subtle w-100 mt-3") }}
-
+                        
+                        <div class="text-center">
+                        {{ form.submit(class="btn btn-warning text-dark-emphasis border border-info-subtle w-50 mt-3") }}
+                        </div>
                     </form>
                 </div>
             </div>
