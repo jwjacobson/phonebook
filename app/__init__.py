@@ -13,7 +13,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 login = LoginManager(app)
-# Tell the login manager where to redirect if a user is not logged in
 login.login_view = "login"
 login.login_message = "Registered users only."
 login.login_message_category = "dark"
