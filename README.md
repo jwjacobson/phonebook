@@ -20,5 +20,6 @@ Here are the steps to take if you'd like to run my program:
 5. Run the program: ```flask run```
 6. Ctrl-click on ```http://127.0.0.1:5000```
 7. You can close the program by closing your browser and then pressing Ctrl-C in the terminal running it.
+8. Don't forget to exit the virtual environment by typing ```deactivate```.
 
 Thank you for your interest!
